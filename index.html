@@ -28,7 +28,7 @@ footer{padding:36px 0 60px;border-top:1px solid var(--line);font-size:11px;color
  </header>
  <main>
   <section class="explore" aria-labelledby="explore-title">
-   <div class="explore-heading"><div><p class="section-eyebrow">DISCOVER BY GENRE &amp; TAGS</p><h2 id="explore-title">探索感興趣的故事</h2><p class="helper">類型單選；主題與特色可複選，並可選擇「全部符合」或「符合任一」。</p></div></div>
+   <div class="explore-heading"><div><p class="section-eyebrow">DISCOVER BY GENRE &amp; TAGS</p><h2 id="explore-title">探索感興趣的故事</h2><p class="helper">類型單選；主題與特色會隨類型縮小，可複選並設定「全部符合」或「符合任一」。</p></div></div>
    <div class="filter-row"><div class="filter-label">GENRE｜類型</div><div class="chips" id="genre-chips" role="group" aria-label="影集主要類型篩選（單選）"></div></div>
    <div class="filter-row"><div class="filter-label">TAGS｜主題與特色</div><div class="chips" id="tag-chips" role="group" aria-label="主題與特色篩選（複選）"></div></div>
    <div class="tool-row"><div class="mode"><span class="mode-label">TAGS 符合方式</span><div class="segment" role="group" aria-label="篩選邏輯"><button type="button" data-mode="and" aria-pressed="true">全部符合 AND</button><button type="button" data-mode="or" aria-pressed="false">符合任一 OR</button></div></div><button class="clear" type="button" id="reset">清除篩選條件</button></div>
@@ -61,17 +61,26 @@ function effectiveTags(s){
  if(s.genre[0]==='家庭劇')set.add('家庭');
  return set;
 }
-const availableTags=tags.filter(t=>shows.some(s=>effectiveTags(s).has(t)));
+// Show only TAGS found within the selected GENRE; show all when no GENRE is selected.
+function availableTagsForGenre(genre){
+ return tags.filter(t=>shows.some(s=>(!genre||s.genre[0]===genre)&&effectiveTags(s).has(t)));
+}
 function renderChips(){
  const genreWrap=$('genre-chips');genreWrap.replaceChildren();
  for(const genre of genres){
   const btn=make('button','chip',genre);btn.type='button';btn.dataset.genre=genre;
   btn.setAttribute('aria-pressed',String(selectedGenre===genre));
-  btn.addEventListener('click',()=>{selectedGenre=selectedGenre===genre?null:genre;renderChips();renderList()});
+  btn.addEventListener('click',()=>{
+   selectedGenre=selectedGenre===genre?null:genre;
+   // Preserve compatible TAGS; remove invisible TAGS that no longer apply.
+   const validTags=new Set(availableTagsForGenre(selectedGenre));
+   for(const tag of selectedTags)if(!validTags.has(tag))selectedTags.delete(tag);
+   renderChips();renderList();
+  });
   genreWrap.appendChild(btn);
  }
  const tagWrap=$('tag-chips');tagWrap.replaceChildren();
- for(const tag of availableTags){
+ for(const tag of availableTagsForGenre(selectedGenre)){
   const btn=make('button','chip',tag);btn.type='button';btn.dataset.tag=tag;
   btn.setAttribute('aria-pressed',String(selectedTags.has(tag)));
   btn.addEventListener('click',()=>{selectedTags.has(tag)?selectedTags.delete(tag):selectedTags.add(tag);renderChips();renderList()});
