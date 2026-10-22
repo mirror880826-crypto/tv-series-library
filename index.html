@@ -28,15 +28,15 @@ footer{padding:36px 0 60px;border-top:1px solid var(--line);font-size:11px;color
  </header>
  <main>
   <section class="explore" aria-labelledby="explore-title">
-   <div class="explore-heading"><div><p class="section-eyebrow">DISCOVER BY GENRE &amp; THEME</p><h2 id="explore-title">探索感興趣的故事</h2><p class="helper">標籤可複選，也可以選擇「全部符合」或「符合任一」。</p></div></div>
+   <div class="explore-heading"><div><p class="section-eyebrow">DISCOVER BY GENRE &amp; TAGS</p><h2 id="explore-title">探索感興趣的故事</h2><p class="helper">標籤可複選，也可以選擇「全部符合」或「符合任一」。</p></div></div>
    <div class="filter-row"><div class="filter-label">GENRE｜類型</div><div class="chips" id="genre-chips" role="group" aria-label="影集類型篩選"></div></div>
-   <div class="filter-row"><div class="filter-label">THEME｜主題</div><div class="chips" id="theme-chips" role="group" aria-label="故事主題篩選"></div></div>
-   <div class="tool-row"><div class="mode"><span class="mode-label">篩選方式</span><div class="segment" role="group" aria-label="篩選邏輯"><button type="button" data-mode="and" aria-pressed="true">全部符合 AND</button><button type="button" data-mode="or" aria-pressed="false">符合任一 OR</button></div></div><button class="clear" type="button" id="reset">清除類型標籤</button></div>
+   <div class="filter-row"><div class="filter-label">TAGS｜主題與特色</div><div class="chips" id="theme-chips" role="group" aria-label="主題與特色篩選"></div></div>
+   <div class="tool-row"><div class="mode"><span class="mode-label">篩選方式</span><div class="segment" role="group" aria-label="篩選邏輯"><button type="button" data-mode="and" aria-pressed="true">全部符合 AND</button><button type="button" data-mode="or" aria-pressed="false">符合任一 OR</button></div></div><button class="clear" type="button" id="reset">清除篩選條件</button></div>
   </section>
   <div class="results-bar"><p class="results-title" id="result-count" aria-live="polite">顯示 <strong>49</strong> 部影集</p><button class="watch-filter" type="button" id="watch-filter" aria-pressed="false" aria-label="只顯示我的待看清單"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M6 4.6A1.6 1.6 0 0 1 7.6 3h8.8A1.6 1.6 0 0 1 18 4.6V21l-6-4-6 4V4.6Z"/></svg>只看待看 <span class="count" id="saved-count">0</span></button></div>
   <div class="series-list" id="series-list" aria-live="polite"></div>
  </main>
- <footer><p>收錄 49 部經典美國真人影集，依類型與主題探索。</p><p>海報圖片由外部來源提供，需連線使用；版權屬原權利人。待看清單保存在此瀏覽器，不會跨裝置同步。</p><p id="poster-credits"></p></footer>
+ <footer><p>收錄 49 部經典美國真人影集，依類型與主題特色探索。</p><p>海報圖片由外部來源提供，需連線使用；版權屬原權利人。待看清單保存在此瀏覽器，不會跨裝置同步。</p><p id="poster-credits"></p></footer>
 </div>
 <script>
 'use strict';
